@@ -1,0 +1,31 @@
+---
+export const prerender = true
+
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
+
+import PostLayout from '@/layouts/BlogPost.astro'
+import { getAllPosts } from '@/utils'
+
+export const getStaticPaths = (async () => {
+	const blogEntries = await getAllPosts()
+	
+	return blogEntries.map((entry) => {
+		const [lang, ...slugParts] = entry.slug.split('/')
+		const slug = slugParts.join('/')
+		
+		return {
+			params: { slug: entry.slug },
+			props: { entry, lang }
+		}
+	})
+}) satisfies GetStaticPaths
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+
+const { entry, lang } = Astro.props
+const { Content } = await entry.render()
+---
+
+<PostLayout post={entry} lang={lang as 'en' | 'tr'}>
+	<Content />
+</PostLayout>

@@ -9,36 +9,61 @@ import PageLayout from './BaseLayout.astro'
 
 interface Props {
 	post: CollectionEntry<'post'>
+	lang: 'en' | 'tr'
 }
 
-const { post } = Astro.props
+const { post, lang } = Astro.props
 const {
 	data: { description, ogImage, publishDate, title, updatedDate },
 	slug
 } = post
 
+// Mevcut slug'dan sade slug kısmını ayıklama
+const pureSlug = slug.includes('/') ? slug.split('/').slice(1).join('/') : slug
+
 const socialImage = ogImage ?? `/og-image/${slug}.png`
 const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString()
 const { headings } = await post.render()
+
+const translations = {
+	en: {
+		back: 'Back',
+		selectLanguage: 'Select Language'
+	},
+	tr: {
+		back: 'Geri',
+		selectLanguage: 'Dil Seçin'
+	}
+}
 ---
 
 <PageLayout meta={{ articleDate, description, ogImage: socialImage, title }}>
 	<div class='w-full'>
-		<Button title='Back' href='/blog' style='button'>
-			<svg
-				xmlns='http://www.w3.org/2000/svg'
-				width='14'
-				height='14'
-				viewBox='0 0 24 24'
-				slot='icon-before'
-			>
-				<path
-					fill='currentColor'
-					d='m6.921 12.5l5.792 5.792L12 19l-7-7l7-7l.713.708L6.921 11.5H19v1z'
+		<div class='flex items-center justify-between'>
+			<Button title={translations[lang].back} href='/blog' style='button'>
+				<svg
+					xmlns='http://www.w3.org/2000/svg'
+					width='14'
+					height='14'
+					viewBox='0 0 24 24'
+					slot='icon-before'
 				>
-				</path>
-			</svg>
-		</Button>
+					<path
+						fill='currentColor'
+						d='m6.921 12.5l5.792 5.792L12 19l-7-7l7-7l.713.708L6.921 11.5H19v1z'
+					>
+					</path>
+				</svg>
+			</Button>
+			<a
+				href={`/blog/${lang === 'en' ? 'tr' : 'en'}/${pureSlug}`}
+				class='rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-all duration-200 hover:bg-accent/50 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:border-border/50 dark:bg-background/50'
+				aria-label={lang === 'en' ? 'Bu içeriği Türkçe oku' : 'Read this content in English'}
+				tabindex='0'
+			>
+				{lang === 'en' ? 'Türkçe' : 'English'}
+			</a>
+		</div>
 		<div class='mt-8 gap-x-10 lg:flex lg:items-start'>
 			{!!headings.length && <TOC headings={headings} />}
 			<article class='flex-grow break-words' data-pagefind-body>

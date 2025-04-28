@@ -12,8 +12,9 @@ import { getAllPosts, getUniqueTags, sortMDByDate } from '@/utils'
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const allPosts = await getAllPosts()
-	const allPostsByDate = sortMDByDate(allPosts)
-	const uniqueTags = getUniqueTags(allPosts)
+	const englishPosts = allPosts.filter(post => post.data.lang === 'en')
+	const allPostsByDate = sortMDByDate(englishPosts)
+	const uniqueTags = getUniqueTags(englishPosts)
 	return paginate(allPostsByDate, { pageSize: 10, props: { uniqueTags } })
 }) satisfies GetStaticPaths
 
@@ -77,7 +78,7 @@ const paginationProps = {
 						</ul>
 						<Pagination {...paginationProps} />
 					</section>
-					{!!uniqueTags.length && (
+					{/* {!!uniqueTags.length && (
 						<aside>
 							<h2 class='mb-4 flex items-center text-lg font-semibold'>
 								<svg
@@ -111,7 +112,7 @@ const paginationProps = {
 								</a>
 							</span>
 						</aside>
-					)}
+					)} */}
 				</div>
 			)
 		}
