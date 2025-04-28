@@ -28,7 +28,9 @@ const {
 			class='flex min-h-screen w-screen max-w-[60rem] flex-col items-center px-6 pb-10 pt-7 font-satoshi text-[0.92rem] leading-relaxed sm:px-10 lg:px-10'
 		>
 			<Header />
-			<slot />
+			<div class="flex-1 w-full">
+				<slot />
+			</div>
 			<Footer />
 		</main>
 	</body>
