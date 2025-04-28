@@ -13,6 +13,13 @@ import icon from 'astro-icon'
 export default defineConfig({
 	site: 'https://ogzcode.github.io',
 	base: "/",
+	i18n: {
+		defaultLocale: 'en',
+		locales: ['en', 'tr'],
+		routing: {
+			prefixDefaultLocale: false,
+		},
+	},
 	integrations: [
 		expressiveCode(expressiveCodeOptions),
 		tailwind({

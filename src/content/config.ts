@@ -7,6 +7,8 @@ function removeDupsAndLowerCase(array: string[]) {
 	return Array.from(distinctItems)
 }
 
+const languageSchema = z.enum(['en', 'tr'])
+
 const post = defineCollection({
 	type: 'content',
 	schema: ({ image }) =>
@@ -29,7 +31,8 @@ const post = defineCollection({
 				.optional(),
 			draft: z.boolean().default(false),
 			tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
-			ogImage: z.string().optional()
+			ogImage: z.string().optional(),
+			lang: languageSchema.default('en')
 		})
 })
 
