@@ -1,5 +1,5 @@
 ---
-title: "Speed and Efficiency in Web Development: Hot Reloading and Live Reloading"
+title: "Efficiency in Web Development: Hot/Live Reloading"
 description: "Explaining what Hot Reloading and Live Reloading technologies are, how they work, and why they are used"
 publishDate: "18 June 2025"
 tags: ["web", "development", "hot reloading", "live reloading"]
