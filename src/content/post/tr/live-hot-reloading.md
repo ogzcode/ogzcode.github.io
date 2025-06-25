@@ -1,5 +1,5 @@
 ---
-title: "Web Geliştirmede Hız ve Verimlilik: Hot Reloading ve Live Reloading"
+title: "Web Geliştirmede Verimlilik: Hot/Live Reloading"
 description: "Hot Reloading ve Live Reloading teknolojilerinin ne olduklarını, nasıl çalıştıklarını ve neden kullanıldıklarını anlatıyorum"
 publishDate: "18 June 2025"
 tags: ["web", "development", "hot reloading", "live reloading"]
